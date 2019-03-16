@@ -18,6 +18,13 @@ Next, we create tokenized and type-aligned files in Repos-cleaned and extract th
 
 ### Running DeepTyper
 The code is implemented in [CNTK](https://github.com/Microsoft/CNTK).
+Install cudnn from here https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html and download from https://developer.nvidia.com/rdp/cudnn-download.
+To use GPU version, make sure you add path of `/usr/local/cuda-9.2/` to `/etc/ld.so.conf.d/cuda.conf` like below
+```
+echo '/usr/local/cuda-9.2/lib64' | sudo tee --append /etc/ld.so.conf.d/cuda.conf
+sudo ldconfig
+ldconfig -p | grep cudart
+```
 
 First, run `lexer.py`. This will store a random inter-project split of 80% train, 10% valid & 10% test data in the data directory. It also creates a source (token) and target (type) vocabulary and a `test-projects.txt` file that can be used by some analysis scripts to retrieve which projects were chosen for testing purposes.
 - By default, the lexer cuts of vocabularies at 10 tokens and drops files of more than 5K characters. To change these settings, please change those numbers on lines 9-11 of `lexer.py`
